@@ -33,6 +33,12 @@ public class UnitTest1
     }
 
     [Fact]
+    public void ShouldBeDCV()
+    {      
+      Assert.True(new Roman().Convert(605)=="DCV");
+    }
+
+    [Fact]
     public void ShouldBeMMXIX()
     {      
       Assert.True(new Roman().Convert(2019)=="MMXIX");
@@ -47,10 +53,21 @@ public class Roman{
       string roman = "";
 
       if (amount>1000)
-         roman+="M";      
+      {
+         roman+="M";
+         return roman+Convert(amount%1000);
+      }
       else if (amount>900)
+      {
          roman+="CM";
+         return roman+Convert(amount%900);
+      }
+      else if (amount>500)
+      {
+        roman+="D";
+        return roman+Convert(amount-500);
 
+      }
 
       if (amount==4)
          return "IV";
