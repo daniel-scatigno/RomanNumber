@@ -123,7 +123,7 @@ public class Roman
    2) I changed the method so the return passes the test, but with a static result (fake)
    3) I wrote more 2 tests and started refactoring the method
    4) The method passes simple numbers like 10 or 25
-   5) I wrote more complexes tests and started refactoring as the tests failed
+   5) I wrote more complexes tests and started refactoring as the tests failed (I started to understand the logic of Roman Numbers)
    6) I Wrote a method with lots of If and Else, some tests passed
    7) I Wrote a method to convert each possibility of digits, I mean, Thousands, Hundreds, Dozens and only numbers
    8) Tests passed, so I wrote more tests
