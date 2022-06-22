@@ -100,25 +100,7 @@ public class Roman
 
    private string ConvertHundreds(int amount)
    {
-      if (amount >= 900)
-      {
-         return "CM";
-      }
-      else if (amount >= 500)
-      {
-         return "D" + ConvertHundreds(amount - 500);
-      }
-      else if (amount >= 400)
-      {
-         return "CD";
-      }
-      else if (amount >= 100)
-      {
-         int romanTimes = amount / 100;
-         return new string('C', romanTimes);
-      }
-
-      return "";
+      return ConvertTo(amount/100,'M','D','C');
    }
 
    private string ConvertDozens(int amount)
@@ -182,7 +164,7 @@ public class Roman
       {
          return unit.ToString() + middle.ToString();
       }
-      else if (amount > 1)
+      else if (amount >= 1)
       {
          return new string(unit, amount);
       }
