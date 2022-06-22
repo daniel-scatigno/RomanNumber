@@ -1,5 +1,6 @@
-namespace RomanNumerals;
 //https://katalyst.codurance.com/roman-numerals
+namespace RomanNumerals;
+
 public class UnitTest1
 {
    [Fact]
@@ -86,70 +87,14 @@ public class Roman
 
    public string Convert(int amount)
    {
-      var digits = amount.ToString().Length;
-      string roman = ConvertThousands(amount) + ConvertHundreds(amount % 1000) + ConvertDozens(amount % 100) + ConvertNumber(amount % 10);
+      string roman = new string('M', amount / 1000)  //Millions (Can only return char 'M')
+         + ConvertTo((amount % 1000) / 100, 'M', 'D', 'C') //Hundreds
+         + ConvertTo((amount % 100) / 10, 'C', 'L', 'X') //Dozens
+         + ConvertTo(amount % 10, 'X', 'V', 'I'); //Less than 10
 
       return roman;
    }
-
-   private string ConvertThousands(int amount)
-   {
-      int romanTimes = amount / 1000;
-      return new string('M', romanTimes);
-   }
-
-   private string ConvertHundreds(int amount)
-   {
-      return ConvertTo(amount/100,'M','D','C');
-   }
-
-   private string ConvertDozens(int amount)
-   {
-      if (amount >= 90)
-      {
-         return "XC";
-      }
-      else if (amount >= 50)
-      {
-         return "L" + ConvertDozens(amount - 50);
-      }
-      else if (amount >= 40)
-      {
-         return "XL";
-      }
-      else if (amount >= 10)
-      {
-         int romanTimes = amount / 10;
-         return new string('X', romanTimes);
-      }
-
-      return "";
-
-   }
-
-   private string ConvertNumber(int amount)
-   {
-      if (amount >= 9)
-      {
-         return "IX";
-      }
-      else if (amount >= 5)
-      {
-         return "V" + ConvertNumber(amount - 5);
-      }
-      else if (amount >= 4)
-      {
-         return "IV";
-      }
-      else if (amount > 1)
-      {
-         return new string('I', amount);
-      }
-
-      return "";
-
-   }
-
+   
    private string ConvertTo(int amount, char next, char middle, char unit)
    {
       if (amount >= 9)
@@ -158,7 +103,7 @@ public class Roman
       }
       else if (amount >= 5)
       {
-         return middle.ToString() + ConvertTo(amount - 5, next, middle, unit);
+         return middle.ToString() + ConvertTo(amount - 5, next, middle, unit); //Recursive call to get the rest
       }
       else if (amount >= 4)
       {
@@ -170,9 +115,26 @@ public class Roman
       }
 
       return "";
-
-
    }
+
+
+   /*History
+   1) I Wrote a simple test, and a Method throwing an excpetion so the test fails
+   2) I changed the method so the return passes the test, but with a static result (fake)
+   3) I wrote more 2 tests and started refactoring the method
+   4) The method passes simple numbers like 10 or 25
+   5) I wrote more complexes tests and started refactoring as the tests failed
+   6) I Wrote a method with lots of If and Else, some tests passed
+   7) I Wrote a method to convert each possibility of digits, I mean, Thousands, Hundreds, Dozens and only numbers
+   8) Tests passed, so I wrote more tests
+   9) Tests passed so my algorithm was right
+   10) I started refactoring to simplify the algorithm
+   11) I wrote a generic method to replace others 3 specific methods
+   12) Tested again, every things works
+   13) Analysed, I think it's possible to improve the speed, because small numbers are tested as thousand and hundreds
+
+
+   */
 
 
 
